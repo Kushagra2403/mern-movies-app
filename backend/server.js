@@ -16,7 +16,7 @@ app.use("*", (req, res) => {
 const port = process.env.PORT || 5000;
 
 mongoose
-  .connect("mongodb://localhost:27017/movies-app", {
+  .connect(process.env.DB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
