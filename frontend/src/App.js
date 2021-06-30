@@ -12,7 +12,7 @@ function App() {
   const [movies, setMovies] = useState([]);
 
   const [searchValue, setSearchValue] = useState("");
-  const [favourites, setFavourites] = useState([]);
+  const [favourites, setFavourites] = useState("");
 
   const getMovies = () => {
     MovieDataService.get()
@@ -33,9 +33,14 @@ function App() {
     }
   };*/
 
-  const addFavourite = (movie) => {
-    const newFavourites = [...favourites, movie];
-    setFavourites(newFavourites);
+  const addFavourite = () => {
+    const mid = favourites;
+    if (favourites !== "") {
+      MovieDataService.postFavourites(mid).then((response) =>
+        console.log(response)
+      );
+      setFavourites("");
+    }
   };
 
   const removeFavourite = (movie) => {
@@ -47,7 +52,8 @@ function App() {
 
   useEffect(() => {
     getMovies();
-  }, [movies]);
+    addFavourite();
+  }, [favourites]);
 
   return (
     <div className="container">
@@ -86,7 +92,7 @@ function App() {
               <MovieList
                 movies={movies}
                 favourite={AddFavourite}
-                handleFavourite={addFavourite}
+                handleFavourite={setFavourites}
               />
             </Route>
           </Switch>

@@ -3,7 +3,10 @@ const router = express.Router();
 const MoviesCtrl = require("../controller/movies.controller.js");
 //const UsersCtrl = require("../controller/users.controller.js");
 
-router.route("/").get(MoviesCtrl.apiGetMovies);
+router
+  .route("/")
+  .get(MoviesCtrl.apiGetMovies)
+  .post(MoviesCtrl.apiPostFavourites);
 router.route("/favourites").get(MoviesCtrl.apiGetFavourites);
 
 //router.route("/login").post(UsersCtrl.apiLogin);

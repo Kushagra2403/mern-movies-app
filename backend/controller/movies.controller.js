@@ -15,6 +15,20 @@ class MoviesController {
     res.json(movieList);
   }
 
+  static async apiPostFavourites(req, res, next) {
+    try {
+      const movieId = req.body.mid;
+      console.log(movieId);
+      const record = new Favourites({
+        favourites: movieId,
+      });
+      const response = await record.save();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async apiGetFavourites(req, res, next) {
     try {
       const userInfo = {

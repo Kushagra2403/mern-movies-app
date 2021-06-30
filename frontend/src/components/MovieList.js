@@ -9,7 +9,7 @@ const MovieList = (props) => {
           <img src={movie.Poster} alt={movie.Title} className="m-3" />
           <p className="details">{movie.Title}</p>
           <div
-            onClick={() => props.handleFavourite(movie)}
+            onClick={() => props.handleFavourite(movie.imdbID)}
             className="favourite"
           >
             <props.favourite />
