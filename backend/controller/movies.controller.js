@@ -1,7 +1,6 @@
 const Favourites = require("../models/movies.js");
 const fetch = require("node-fetch");
 const dotenv = require("dotenv");
-const { POINT_CONVERSION_COMPRESSED } = require("constants");
 
 dotenv.config();
 const API_KEY = process.env.API_KEY;
@@ -13,7 +12,7 @@ class MoviesController {
     const jsonData = await response.json();
     const movieList = jsonData.Search;
     console.log(movieList);
-    return movieList;
+    res.json(movieList);
   }
 
   static async apiGetFavourites(req, res, next) {
@@ -22,12 +21,12 @@ class MoviesController {
         uname: req.body.username,
         _id: req.body.user_id,
       };
-      const fetchMovies = await Favourites.find({ userID: userInfo._id })
-        .favourites;
-      return fetchMovies;
-    } catch (error) {
-      console.log(error);
-      return;
+      const fetchMovies = await Favourites.find().favourites;
+      let response = fetchMovies;
+      res.json(fetchMovies);
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ error: e });
     }
   }
 }
